@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/math-exercises-for-kids.git"
+    "url": "git+https://github.com/SerhiiStaryk/math-exercises-for-kids.git"
   },
   "keywords": [
     "math",
@@ -19,10 +19,7 @@
   ],
   "author": "",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/yourusername/math-exercises-for-kids/issues"
-  },
-  "homepage": "https://yourusername.github.io/math-exercises-for-kids",
+  "homepage": "https://github.com/SerhiiStaryk/math-exercises-for-kids.git",
   "devDependencies": {
     "gh-pages": "^6.1.1"
   },
