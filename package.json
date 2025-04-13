@@ -1,0 +1,32 @@
+{
+  "name": "math-exercises-for-kids",
+  "version": "1.0.0",
+  "description": "Інтерактивна веб-програма для вивчення математики для дітей",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/math-exercises-for-kids.git"
+  },
+  "keywords": [
+    "math",
+    "education",
+    "kids",
+    "learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/math-exercises-for-kids/issues"
+  },
+  "homepage": "https://yourusername.github.io/math-exercises-for-kids",
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  },
+  "dependencies": {
+    "math-exercises-for-kids": "file:"
+  }
+}
