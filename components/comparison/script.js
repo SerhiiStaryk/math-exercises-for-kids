@@ -9,6 +9,7 @@ function selectComparisonGame() {
 function startComparisonGame() {
     currentQuestion = 0;
     correctAnswers = 0;
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь
     generateComparisonQuestion();
     updateProgress('comparison-progress-fill', 'comparison-progress-text');
 }
@@ -26,14 +27,22 @@ function generateComparisonQuestion() {
     }
     
     document.getElementById('comparison-question').textContent = `${currentA} ? ${currentB}`;
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь при генерації нового питання
 }
 
 function checkComparisonAnswer(button) {
     const userAnswer = button.getAttribute('data-value');
     const resultMessage = document.getElementById('comparison-result-message');
+    const checkButton = document.getElementById('check-comparison-button');
+    
+    // Перевіряємо на дублювання відповіді
+    if (isDuplicateAnswer(userAnswer)) {
+        return;
+    }
     
     // Блокуємо всі кнопки
     setButtonsEnabled(false, 'comparison-game');
+    checkButton.disabled = true;
     
     if (userAnswer === currentAnswer) {
         button.classList.add('correct');
@@ -71,6 +80,7 @@ function checkComparisonAnswer(button) {
             resultMessage.textContent = '';
             // Розблоковуємо кнопки перед наступним питанням
             setButtonsEnabled(true, 'comparison-game');
+            checkButton.disabled = false;
             generateComparisonQuestion();
         }, 1500);
     } else {

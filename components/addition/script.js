@@ -1,30 +1,31 @@
 // Використовуємо змінні з common.js
-function selectSubtractionGame() {
-    currentGame = 'subtraction';
+function selectAdditionGame() {
+    currentGame = 'addition';
     document.getElementById('game-selection').classList.add('hidden');
-    document.getElementById('subtraction-game').classList.remove('hidden');
-    startSubtractionGame();
+    document.getElementById('addition-game').classList.remove('hidden');
+    startAdditionGame();
 }
 
-function startSubtractionGame() {
+function startAdditionGame() {
     currentQuestion = 0;
     correctAnswers = 0;
-    generateSubtractionQuestion();
-    updateProgress('subtraction-progress-fill', 'subtraction-progress-text');
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь
+    generateAdditionQuestion();
+    updateProgress('addition-progress-fill', 'addition-progress-text');
 }
 
-function generateSubtractionQuestion() {
-    // Generate numbers for subtraction (result should not be negative)
-    currentA = Math.floor(Math.random() * 10) + 1; // Number from 1 to 10
-    currentB = Math.floor(Math.random() * currentA); // Number from 0 to currentA
-    currentAnswer = currentA - currentB;
+function generateAdditionQuestion() {
+    // Generate numbers for addition (sum should not exceed 10)
+    currentA = Math.floor(Math.random() * 10);
+    currentB = Math.floor(Math.random() * (11 - currentA));
+    currentAnswer = currentA + currentB;
 
     // Display the question
-    document.getElementById('subtraction-question').textContent = `${currentA} - ${currentB} = ?`;
+    document.getElementById('addition-question').textContent = `${currentA} + ${currentB} = ?`;
 
     // Generate answer options
-    const answers = generateSubtractionAnswerOptions(currentAnswer);
-    const answerButtons = document.querySelectorAll('#subtraction-game .answer-button');
+    const answers = generateAnswerOptions(currentAnswer);
+    const answerButtons = document.querySelectorAll('#addition-game .answer-button');
     
     // Shuffle and assign answers to buttons
     answers.forEach((answer, index) => {
@@ -33,15 +34,16 @@ function generateSubtractionQuestion() {
         answerButtons[index].className = 'answer-button'; // Reset button styles
         answerButtons[index].disabled = false; // Enable buttons
     });
+    
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь при генерації нового питання
 }
 
-function generateSubtractionAnswerOptions(correctAnswer) {
+function generateAnswerOptions(correctAnswer) {
     let answers = [correctAnswer];
     
-    // Generate two wrong answers that make sense for subtraction
+    // Generate two wrong answers
     while (answers.length < 3) {
-        // Generate a number between 0 and 10, but not equal to the correct answer
-        let wrongAnswer = Math.floor(Math.random() * 11);
+        let wrongAnswer = Math.floor(Math.random() * 11); // Random number 0-10
         if (!answers.includes(wrongAnswer) && wrongAnswer !== correctAnswer) {
             answers.push(wrongAnswer);
         }
@@ -51,10 +53,15 @@ function generateSubtractionAnswerOptions(correctAnswer) {
     return answers.sort(() => Math.random() - 0.5);
 }
 
-function checkSubtractionAnswer(button) {
+function checkAdditionAnswer(button) {
     const userAnswer = parseInt(button.getAttribute('data-value'));
-    const resultMessage = document.getElementById('subtraction-result-message');
-    const buttons = document.querySelectorAll('#subtraction-game .answer-button');
+    const resultMessage = document.getElementById('addition-result-message');
+    const buttons = document.querySelectorAll('#addition-game .answer-button');
+    
+    // Перевіряємо на дублювання відповіді
+    if (isDuplicateAnswer(userAnswer)) {
+        return;
+    }
     
     // Disable all buttons temporarily
     buttons.forEach(btn => btn.disabled = true);
@@ -76,10 +83,10 @@ function checkSubtractionAnswer(button) {
         resultMessage.className = 'incorrect';
         
         if (!isReviewMode) {
-            saveMistake('subtraction', {
+            saveMistake('addition', {
                 a: currentA,
                 b: currentB,
-                operation: 'subtraction',
+                operation: 'addition',
                 correctAnswer: currentAnswer,
                 userAnswer: userAnswer
             });
@@ -87,13 +94,13 @@ function checkSubtractionAnswer(button) {
     }
     
     currentQuestion++;
-    updateProgress('subtraction-progress-fill', 'subtraction-progress-text');
+    updateProgress('addition-progress-fill', 'addition-progress-text');
     
     if (currentQuestion < totalQuestions && (!isReviewMode || currentMistakes.length > 0)) {
         setTimeout(() => {
             resultMessage.textContent = '';
             buttons.forEach(btn => btn.disabled = false);
-            generateSubtractionQuestion();
+            generateAdditionQuestion();
         }, 1500);
     } else {
         setTimeout(() => {

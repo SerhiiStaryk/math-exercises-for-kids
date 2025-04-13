@@ -10,6 +10,7 @@ let isReviewMode = false;
 let currentMistakes = [];
 let maxNumber = 10;
 let currentLevel = 1;
+let lastSubmittedAnswer = null; // Додаємо змінну для відстеження останньої відповіді
 
 // Загальні функції
 function getMaxNumber(level) {
@@ -60,6 +61,7 @@ function returnToMenu() {
     correctAnswers = 0;
     isReviewMode = false;
     currentMistakes = [];
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь
 }
 
 function saveMistake(gameType, mistake) {
@@ -82,6 +84,16 @@ function closeModal() {
     document.getElementById('modal').classList.add('hidden');
 }
 
+// Нова функція для перевірки дублювання відповіді
+function isDuplicateAnswer(answer) {
+    if (lastSubmittedAnswer === answer) {
+        showModal('Ви вже давали таку саму відповідь на це питання. Спробуйте іншу відповідь!');
+        return true;
+    }
+    lastSubmittedAnswer = answer;
+    return false;
+}
+
 function startMistakeReview(gameType) {
     isReviewMode = true;
     currentMistakes = JSON.parse(localStorage.getItem(`${gameType}_mistakes`) || '[]');
@@ -94,6 +106,7 @@ function startMistakeReview(gameType) {
     // Скидаємо лічильники
     currentQuestion = 0;
     correctAnswers = 0;
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь
     
     // Запускаємо гру в режимі перегляду помилок
     switch(gameType) {

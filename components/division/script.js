@@ -12,6 +12,7 @@ function startDivisionGame(level) {
     currentQuestion = 0;
     correctAnswers = 0;
     currentGame = 'division';
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь
     
     document.getElementById('division-level-selection').classList.add('hidden');
     document.getElementById('division-game-play').classList.remove('hidden');
@@ -27,6 +28,7 @@ function generateDivisionQuestion() {
     document.getElementById('division-question-text').textContent = `Скільки буде ${currentA} ÷ ${currentB}?`;
     document.getElementById('division-answer-input').value = '';
     document.getElementById('division-answer-input').focus();
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь при генерації нового питання
 }
 
 function checkDivisionAnswer() {
@@ -36,6 +38,11 @@ function checkDivisionAnswer() {
     if (isNaN(userAnswer)) {
         resultMessage.textContent = 'Будь ласка, введіть число';
         resultMessage.className = 'incorrect';
+        return;
+    }
+    
+    // Перевіряємо на дублювання відповіді
+    if (isDuplicateAnswer(userAnswer)) {
         return;
     }
     
