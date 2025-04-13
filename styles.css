@@ -64,12 +64,13 @@ button:hover {
 }
 
 .return-button {
-    background-color: #e74c3c;
-    margin-top: 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
 }
 
 .return-button:hover {
-    background-color: #c0392b;
+    background-color: #da190b;
 }
 
 .game-section {
@@ -185,13 +186,13 @@ input[type="number"] {
 }
 
 .review-button {
-    background-color: #f1c40f;
-    color: #2c3e50;
-    margin: 10px 0;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
 }
 
 .review-button:hover {
-    background-color: #f39c12;
+    background-color: #45a049;
 }
 
 .stats-container {
@@ -313,4 +314,19 @@ input[type="number"] {
 
 .comparison-options .answer-button:hover {
     background-color: #45a049;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.action-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 } 
