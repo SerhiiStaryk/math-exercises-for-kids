@@ -1,0 +1,29 @@
+{
+  "name": "math-exercises-for-kids",
+  "version": "1.0.0",
+  "description": "Інтерактивна веб-програма для вивчення математики для дітей",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SerhiiStaryk/math-exercises-for-kids.git"
+  },
+  "keywords": [
+    "math",
+    "education",
+    "kids",
+    "learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/SerhiiStaryk/math-exercises-for-kids.git",
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  },
+  "dependencies": {
+    "math-exercises-for-kids": "file:"
+  }
+}

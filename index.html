@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математичні вправи</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Вітаю у програмі для вивчення математики!</h1>
+        
+        <div id="game-selection" class="section">
+            <h2>Оберіть гру:</h2>
+            <div class="game-buttons">
+                <button onclick="selectGame('multiplication')">Таблиця множення</button>
+                <button onclick="selectGame('division')">Таблиця ділення</button>
+                <button onclick="selectGame('addition')">Додавання до 10</button>
+                <button onclick="selectGame('subtraction')">Віднімання до 10</button>
+                <button onclick="selectGame('comparison')">Порівняння чисел до 10</button>
+            </div>
+            <button onclick="showStatistics()" class="statistics-button">Статистика помилок</button>
+        </div>
+
+        <div id="multiplication-game" class="game-section hidden">
+            <div id="level-selection" class="section">
+                <h2>Оберіть рівень складності:</h2>
+                <div class="level-buttons">
+                    <button onclick="startGame(1, 'multiplication')">Легкий (1-4)</button>
+                    <button onclick="startGame(2, 'multiplication')">Середній (1-7)</button>
+                    <button onclick="startGame(3, 'multiplication')">Складний (1-10)</button>
+                </div>
+                <button onclick="startMistakeReview('multiplication')" class="review-button">Робота над помилками</button>
+                <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
+            </div>
+
+            <div id="game" class="section hidden">
+                <div class="question-container">
+                    <h2 id="question-text"></h2>
+                    <input type="number" id="answer-input" placeholder="Введіть відповідь">
+                    <button onclick="checkAnswer()">Перевірити</button>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div id="progress-fill"></div>
+                    </div>
+                    <p id="progress-text">0/10</p>
+                </div>
+                <div id="result-message"></div>
+                <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
+            </div>
+        </div>
+
+        <div id="division-game" class="game-section hidden">
+            <div id="division-level-selection" class="section">
+                <h2>Оберіть рівень складності:</h2>
+                <div class="level-buttons">
+                    <button onclick="startGame(1, 'division')">Легкий (1-4)</button>
+                    <button onclick="startGame(2, 'division')">Середній (1-7)</button>
+                    <button onclick="startGame(3, 'division')">Складний (1-10)</button>
+                </div>
+                <button onclick="startMistakeReview('division')" class="review-button">Робота над помилками</button>
+                <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
+            </div>
+
+            <div id="division-game-play" class="section hidden">
+                <div class="question-container">
+                    <h2 id="division-question-text"></h2>
+                    <input type="number" id="division-answer-input" placeholder="Введіть відповідь">
+                    <button onclick="checkDivisionAnswer()">Перевірити</button>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div id="division-progress-fill"></div>
+                    </div>
+                    <p id="division-progress-text">0/10</p>
+                </div>
+                <div id="division-result-message"></div>
+                <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
+            </div>
+        </div>
+
+        <div id="addition-game" class="game-section hidden">
+            <div class="section">
+                <h2 id="addition-question" class="big-text"></h2>
+                <button onclick="startMistakeReview('addition')" class="review-button">Робота над помилками</button>
+                <div class="answer-options">
+                    <button onclick="checkAdditionAnswer(this)" class="answer-button" data-value=""></button>
+                    <button onclick="checkAdditionAnswer(this)" class="answer-button" data-value=""></button>
+                    <button onclick="checkAdditionAnswer(this)" class="answer-button" data-value=""></button>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div id="addition-progress-fill"></div>
+                    </div>
+                    <p id="addition-progress-text">0/10</p>
+                </div>
+                <div id="addition-result-message"></div>
+                <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
+            </div>
+        </div>
+
+        <div id="subtraction-game" class="game-section hidden">
+            <div class="section">
+                <h2 id="subtraction-question" class="big-text"></h2>
+                <button onclick="startMistakeReview('subtraction')" class="review-button">Робота над помилками</button>
+                <div class="answer-options">
+                    <button onclick="checkSubtractionAnswer(this)" class="answer-button" data-value=""></button>
+                    <button onclick="checkSubtractionAnswer(this)" class="answer-button" data-value=""></button>
+                    <button onclick="checkSubtractionAnswer(this)" class="answer-button" data-value=""></button>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div id="subtraction-progress-fill"></div>
+                    </div>
+                    <p id="subtraction-progress-text">0/10</p>
+                </div>
+                <div id="subtraction-result-message"></div>
+                <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
+            </div>
+        </div>
+
+        <div id="comparison-game" class="game-section hidden">
+            <div class="section">
+                <h2 id="comparison-question" class="big-text"></h2>
+                <div class="answer-options comparison-options">
+                    <button onclick="checkComparisonAnswer(this)" class="answer-button" data-value="<">&lt;</button>
+                    <button onclick="checkComparisonAnswer(this)" class="answer-button" data-value="=">=</button>
+                    <button onclick="checkComparisonAnswer(this)" class="answer-button" data-value=">">&gt;</button>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div id="comparison-progress-fill"></div>
+                    </div>
+                    <p id="comparison-progress-text">0/10</p>
+                </div>
+                <div id="comparison-result-message"></div>
+                <button onclick="startMistakeReview('comparison')" class="review-button">Робота над помилками</button>
+                <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
+            </div>
+        </div>
+
+        <div id="final-results" class="section hidden">
+            <h2>Гра закінчена!</h2>
+            <p id="final-score"></p>
+            <p id="final-message"></p>
+            <button onclick="restartGame()">Спробувати ще раз</button>
+            <button onclick="returnToMenu()">Повернутися до меню</button>
+        </div>
+
+        <div id="statistics" class="section hidden">
+            <h2>Статистика помилок</h2>
+            <div class="stats-container">
+                <div class="stats-section">
+                    <h3>Множення</h3>
+                    <div id="multiplication-mistakes"></div>
+                </div>
+                <div class="stats-section">
+                    <h3>Ділення</h3>
+                    <div id="division-mistakes"></div>
+                </div>
+                <div class="stats-section">
+                    <h3>Додавання</h3>
+                    <div id="addition-mistakes"></div>
+                </div>
+                <div class="stats-section">
+                    <h3>Віднімання</h3>
+                    <div id="subtraction-mistakes"></div>
+                </div>
+                <div class="stats-section">
+                    <h3>Порівняння</h3>
+                    <div id="comparison-mistakes"></div>
+                </div>
+            </div>
+            <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
+        </div>
+    </div>
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <h3 id="modal-title">Повідомлення</h3>
+            <p id="modal-message"></p>
+            <button onclick="closeModal()" class="modal-button">Зрозуміло</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
