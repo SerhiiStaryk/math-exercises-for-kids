@@ -54,9 +54,9 @@ function generateMultiplicationQuestion() {
         currentB = Math.floor(Math.random() * maxNumber) + 1;
         currentAnswer = currentA * currentB;
     }
-    document.getElementById('question-text').textContent = `Скільки буде ${currentA} × ${currentB}?`;
-    document.getElementById('answer-input').value = '';
-    document.getElementById('answer-input').focus();
+    document.getElementById('multiplication-question-text').textContent = `Скільки буде ${currentA} × ${currentB}?`;
+    document.getElementById('multiplication-answer-input').value = '';
+    document.getElementById('multiplication-answer-input').focus();
 }
 
 function generateDivisionQuestion() {
@@ -76,7 +76,7 @@ function startGame(level, game) {
     
     if (game === 'multiplication') {
         document.getElementById('level-selection').classList.add('hidden');
-        document.getElementById('game').classList.remove('hidden');
+        document.getElementById('multiplication-game-play').classList.remove('hidden');
         document.getElementById('final-results').classList.add('hidden');
         updateProgress();
         generateMultiplicationQuestion();
@@ -99,51 +99,52 @@ function startGame(level, game) {
 }
 
 function checkAnswer() {
-    const userAnswer = document.getElementById('answer').value.trim();
-    let isCorrect = false;
+    if (currentGame === 'multiplication') {
+        checkMultiplicationAnswer();
+    } else if (currentGame === 'division') {
+        checkDivisionAnswer();
+    }
+}
+
+function checkMultiplicationAnswer() {
+    const userAnswer = parseInt(document.getElementById('multiplication-answer-input').value);
+    const resultMessage = document.getElementById('multiplication-result-message');
     
-    if (currentGameType === 'comparison') {
-        isCorrect = userAnswer === currentExercise.answer;
-        if (isCorrect) {
-            showModal(`Правильно! ${currentExercise.num1} ${currentExercise.answer} ${currentExercise.num2}`);
-        } else {
-            showModal(`Неправильно. Правильна відповідь: ${currentExercise.num1} ${currentExercise.answer} ${currentExercise.num2}`);
-        }
+    if (isNaN(userAnswer)) {
+        resultMessage.textContent = 'Будь ласка, введіть число';
+        resultMessage.className = 'incorrect';
+        return;
+    }
+    
+    if (userAnswer === currentAnswer) {
+        resultMessage.textContent = '✅ Правильно! Молодець!';
+        resultMessage.className = 'correct';
+        correctAnswers++;
     } else {
-        isCorrect = userAnswer === currentExercise.answer.toString();
-        if (isCorrect) {
-            showModal('Правильно! Молодець!');
-        } else {
-            showModal('Неправильно. Спробуйте ще раз!');
+        resultMessage.textContent = `❌ Неправильно. Правильна відповідь: ${currentAnswer}`;
+        resultMessage.className = 'incorrect';
+        
+        if (!isReviewMode) {
+            saveMistake('multiplication', {
+                a: currentA,
+                b: currentB,
+                operation: 'multiplication',
+                correctAnswer: currentAnswer,
+                userAnswer: userAnswer
+            });
         }
     }
     
-    if (isCorrect) {
-        score += 10;
-        document.getElementById('score').textContent = score;
-        if (score % 50 === 0) {
-            currentLevel++;
-            document.getElementById('level').textContent = currentLevel;
-        }
-        document.getElementById('answer').value = '';
-        if (currentGameType === 'comparison') {
-            currentExercise = generateComparisonExercise();
-            document.getElementById('question').textContent = currentExercise.question;
-        } else {
-            currentExercise = generateExercise(currentGameType);
-            document.getElementById('question').textContent = currentExercise.question;
-        }
+    currentQuestion++;
+    updateProgress();
+    
+    if (currentQuestion < totalQuestions && (!isReviewMode || currentMistakes.length > 0)) {
+        setTimeout(generateMultiplicationQuestion, 1500);
     } else {
-        const mistake = {
-            question: currentExercise.question,
-            userAnswer: userAnswer,
-            correctAnswer: currentGameType === 'comparison' ? 
-                `${currentExercise.num1} ${currentExercise.answer} ${currentExercise.num2}` : 
-                currentExercise.answer
-        };
-        mistakes.push(mistake);
-        saveMistakes();
-        updateMistakesList();
+        setTimeout(() => {
+            showFinalResults();
+            isReviewMode = false;
+        }, 1500);
     }
 }
 
@@ -367,7 +368,7 @@ function updateSubtractionProgress() {
 
 function showFinalResults() {
     if (currentGame === 'multiplication') {
-        document.getElementById('game').classList.add('hidden');
+        document.getElementById('multiplication-game-play').classList.add('hidden');
     } else if (currentGame === 'division') {
         document.getElementById('division-game-play').classList.add('hidden');
     } else if (currentGame === 'addition') {
@@ -427,7 +428,7 @@ function returnToMenu() {
 }
 
 // Додаємо обробники подій для клавіші Enter
-document.getElementById('answer-input').addEventListener('keypress', function(e) {
+document.getElementById('multiplication-answer-input').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         checkAnswer();
     }
