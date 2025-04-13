@@ -22,136 +22,25 @@
             <button onclick="showStatistics()" class="statistics-button">Статистика помилок</button>
         </div>
 
-        <div id="multiplication-game" class="game-section hidden">
-            <div id="level-selection" class="section">
-                <h2>Оберіть рівень складності:</h2>
-                <div class="level-buttons">
-                    <button onclick="startMultiplicationGame(1)">Легкий (1-4)</button>
-                    <button onclick="startMultiplicationGame(2)">Середній (1-7)</button>
-                    <button onclick="startMultiplicationGame(3)">Складний (1-10)</button>
-                </div>
-                <div class="action-buttons">
-                    <button onclick="startMistakeReview('multiplication')" class="review-button">Робота над помилками</button>
-                    <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
-                </div>
-            </div>
-
-            <div id="multiplication-game-play" class="section hidden">
-                <div class="question-container">
-                    <h2 id="multiplication-question-text"></h2>
-                    <input type="number" id="multiplication-answer-input" placeholder="Введіть відповідь">
-                    <button onclick="checkMultiplicationAnswer()">Перевірити</button>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar">
-                        <div id="progress-fill"></div>
-                    </div>
-                    <p id="progress-text">0/10</p>
-                </div>
-                <div id="multiplication-result-message"></div>
-                <div class="action-buttons">
-                    <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="division-game" class="game-section hidden">
-            <div id="division-level-selection" class="section">
-                <h2>Оберіть рівень складності:</h2>
-                <div class="level-buttons">
-                    <button onclick="startDivisionGame(1)">Легкий (1-4)</button>
-                    <button onclick="startDivisionGame(2)">Середній (1-7)</button>
-                    <button onclick="startDivisionGame(3)">Складний (1-10)</button>
-                </div>
-                <div class="action-buttons">
-                    <button onclick="startMistakeReview('division')" class="review-button">Робота над помилками</button>
-                    <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
-                </div>
-            </div>
-
-            <div id="division-game-play" class="section hidden">
-                <div class="question-container">
-                    <h2 id="division-question-text"></h2>
-                    <input type="number" id="division-answer-input" placeholder="Введіть відповідь">
-                    <button onclick="checkDivisionAnswer()">Перевірити</button>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar">
-                        <div id="division-progress-fill"></div>
-                    </div>
-                    <p id="division-progress-text">0/10</p>
-                </div>
-                <div id="division-result-message"></div>
-                <div class="action-buttons">
-                    <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="addition-game" class="game-section hidden">
-            <div class="section">
-                <h2 id="addition-question" class="big-text"></h2>
-                <div class="answer-options">
-                    <button onclick="checkAdditionAnswer(this)" class="answer-button" data-value=""></button>
-                    <button onclick="checkAdditionAnswer(this)" class="answer-button" data-value=""></button>
-                    <button onclick="checkAdditionAnswer(this)" class="answer-button" data-value=""></button>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar">
-                        <div id="addition-progress-fill"></div>
-                    </div>
-                    <p id="addition-progress-text">0/10</p>
-                </div>
-                <div id="addition-result-message"></div>
-                <div class="action-buttons">
-                    <button onclick="startMistakeReview('addition')" class="review-button">Робота над помилками</button>
-                    <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="subtraction-game" class="game-section hidden">
-            <div class="section">
-                <h2 id="subtraction-question" class="big-text"></h2>
-                <div class="answer-options">
-                    <button onclick="checkSubtractionAnswer(this)" class="answer-button" data-value=""></button>
-                    <button onclick="checkSubtractionAnswer(this)" class="answer-button" data-value=""></button>
-                    <button onclick="checkSubtractionAnswer(this)" class="answer-button" data-value=""></button>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar">
-                        <div id="subtraction-progress-fill"></div>
-                    </div>
-                    <p id="subtraction-progress-text">0/10</p>
-                </div>
-                <div id="subtraction-result-message"></div>
-                <div class="action-buttons">
-                    <button onclick="startMistakeReview('subtraction')" class="review-button">Робота над помилками</button>
-                    <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="comparison-game" class="game-section hidden">
-            <div class="section">
-                <h2 id="comparison-question" class="big-text"></h2>
-                <div class="answer-options comparison-options">
-                    <button onclick="checkComparisonAnswer(this)" class="answer-button" data-value="<">&lt;</button>
-                    <button onclick="checkComparisonAnswer(this)" class="answer-button" data-value="=">=</button>
-                    <button onclick="checkComparisonAnswer(this)" class="answer-button" data-value=">">&gt;</button>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar">
-                        <div id="comparison-progress-fill"></div>
-                    </div>
-                    <p id="comparison-progress-text">0/10</p>
-                </div>
-                <div id="comparison-result-message"></div>
-                <div class="action-buttons">
-                    <button onclick="startMistakeReview('comparison')" class="review-button">Робота над помилками</button>
-                    <button onclick="returnToMenu()" class="return-button">Повернутися до меню</button>
-                </div>
-            </div>
+        <!-- Include game components -->
+        <div id="game-components">
+            <!-- Multiplication game -->
+            <div id="multiplication-game-container"></div>
+            
+            <!-- Division game -->
+            <div id="division-game-container"></div>
+            
+            <!-- Addition game -->
+            <div id="addition-game-container"></div>
+            
+            <!-- Subtraction game -->
+            <div id="subtraction-game-container"></div>
+            
+            <!-- Comparison game -->
+            <div id="comparison-game-container"></div>
+            
+            <!-- Statistics -->
+            <div id="statistics-container"></div>
         </div>
 
         <div id="final-results" class="section hidden">
@@ -161,32 +50,6 @@
             <button onclick="restartGame()">Спробувати ще раз</button>
             <button onclick="returnToMenu()">Повернутися до меню</button>
         </div>
-
-        <div id="statistics" class="section hidden">
-            <h2>Статистика помилок</h2>
-            <div class="stats-container">
-                <div class="stats-section">
-                    <h3>Множення</h3>
-                    <div id="multiplication-mistakes"></div>
-                </div>
-                <div class="stats-section">
-                    <h3>Ділення</h3>
-                    <div id="division-mistakes"></div>
-                </div>
-                <div class="stats-section">
-                    <h3>Додавання</h3>
-                    <div id="addition-mistakes"></div>
-                </div>
-                <div class="stats-section">
-                    <h3>Віднімання</h3>
-                    <div id="subtraction-mistakes"></div>
-                </div>
-                <div class="stats-section">
-                    <h3>Порівняння</h3>
-                    <div id="comparison-mistakes"></div>
-                </div>
-            </div>
-        </div>
     </div>
     <div id="modal" class="modal hidden">
         <div class="modal-content">
@@ -195,11 +58,58 @@
             <button onclick="closeModal()" class="modal-button">Зрозуміло</button>
         </div>
     </div>
-    <script src="multiplication.js"></script>
-    <script src="division.js"></script>
-    <script src="addition.js"></script>
-    <script src="subtraction.js"></script>
-    <script src="comparison.js"></script>
-    <script src="common.js"></script>
+    <!-- Load game scripts -->
+    <script src="components/multiplication/script.js"></script>
+    <script src="components/division/script.js"></script>
+    <script src="components/addition/script.js"></script>
+    <script src="components/subtraction/script.js"></script>
+    <script src="components/comparison/script.js"></script>
+    <script src="components/common/script.js"></script>
+    <script>
+        // Load game components
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load multiplication game
+            fetch('components/multiplication/index.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('multiplication-game-container').innerHTML = html;
+                });
+
+            // Load division game
+            fetch('components/division/index.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('division-game-container').innerHTML = html;
+                });
+
+            // Load addition game
+            fetch('components/addition/index.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('addition-game-container').innerHTML = html;
+                });
+
+            // Load subtraction game
+            fetch('components/subtraction/index.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('subtraction-game-container').innerHTML = html;
+                });
+
+            // Load comparison game
+            fetch('components/comparison/index.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('comparison-game-container').innerHTML = html;
+                });
+
+            // Load statistics
+            fetch('components/common/statistics.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('statistics-container').innerHTML = html;
+                });
+        });
+    </script>
 </body>
 </html> 

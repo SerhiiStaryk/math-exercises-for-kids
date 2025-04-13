@@ -10,6 +10,7 @@ function startMultiplicationGame(level) {
     currentQuestion = 0;
     correctAnswers = 0;
     currentGame = 'multiplication';
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь
     
     document.getElementById('level-selection').classList.add('hidden');
     document.getElementById('multiplication-game-play').classList.remove('hidden');
@@ -32,6 +33,7 @@ function generateMultiplicationQuestion() {
     document.getElementById('multiplication-question-text').textContent = `Скільки буде ${currentA} × ${currentB}?`;
     document.getElementById('multiplication-answer-input').value = '';
     document.getElementById('multiplication-answer-input').focus();
+    lastSubmittedAnswer = null; // Скидаємо останню відповідь при генерації нового питання
 }
 
 function checkMultiplicationAnswer() {
@@ -41,6 +43,11 @@ function checkMultiplicationAnswer() {
     if (isNaN(userAnswer)) {
         resultMessage.textContent = 'Будь ласка, введіть число';
         resultMessage.className = 'incorrect';
+        return;
+    }
+    
+    // Перевіряємо на дублювання відповіді
+    if (isDuplicateAnswer(userAnswer)) {
         return;
     }
     
